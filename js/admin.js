@@ -304,10 +304,57 @@
 
   /* ---------------- 写操作：开 GitHub 预填 issue ---------------- */
 
+  function copyText(str) {
+    var ta = document.createElement('textarea');
+    ta.value = str;
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    ta.remove();
+  }
+
+  function toast(text, copyBody, url) {
+    var old = document.getElementById('jmsu-toast');
+    if (old) old.remove();
+    var t = el('div', 'jmsu-toast');
+    t.id = 'jmsu-toast';
+    var span = el('span', '', esc(text));
+    t.appendChild(span);
+    if (copyBody !== undefined && copyBody !== null) {
+      var c = el('button', 'jmsu-toast-btn', '复制内容');
+      c.onclick = function () { copyText(copyBody); c.textContent = '已复制'; };
+      t.appendChild(c);
+    }
+    if (url) {
+      var o = el('a', 'jmsu-toast-btn', '打开发布页');
+      o.href = url;
+      o.target = '_blank';
+      o.rel = 'noopener';
+      t.appendChild(o);
+    }
+    document.body.appendChild(t);
+    setTimeout(function () { if (t.parentNode) t.remove(); }, 8000);
+  }
+
+  function issueUrl(title, body) {
+    return ISSUE_NEW + '?title=' + encodeURIComponent(title) +
+           (body ? '&body=' + encodeURIComponent(body) : '');
+  }
+
   function openIssue(title, body) {
-    var u = ISSUE_NEW + '?title=' + encodeURIComponent(title) +
-            (body ? '&body=' + encodeURIComponent(body) : '');
-    window.open(u, '_blank');
+    var url = issueUrl(title, body);
+    var w = null;
+    try { w = window.open(url, '_blank'); } catch (e) { w = null; }
+    var full = title + (body ? '\n' + body : '');
+    if (w) {
+      toast('发布页已打开。要你先登录 GitHub 的话，登录完会自动回到这一页。', full, null);
+    } else {
+      toast('新窗口被拦了。点「打开发布页」或「复制内容」去 GitHub 手动发。', full, url);
+    }
+    return url;
   }
 
   /* ---------------- 样式 ---------------- */
@@ -370,6 +417,10 @@
     '.jmsu-fab{position:fixed;right:22px;bottom:26px;width:46px;height:46px;border-radius:50%;background:var(--jm);color:#fff;border:0;cursor:pointer;font-size:13px;letter-spacing:.08em;box-shadow:0 6px 20px rgba(47,93,80,.38);z-index:9990;display:flex;align-items:center;justify-content:center;font-family:inherit;transition:transform .15s,background .15s}',
     '.jmsu-fab:hover{background:var(--jm-d);transform:translateY(-1px)}',
     '.jmsu-fab .dot{position:absolute;top:9px;right:9px;width:6px;height:6px;border-radius:50%;background:#e8b64c}',
+    '.jmsu-toast{position:fixed;right:22px;bottom:86px;z-index:9995;max-width:min(360px,86vw);background:#22303c;color:#fff;padding:12px 14px;font-size:12.5px;line-height:1.6;box-shadow:0 8px 26px rgba(0,0,0,.25);display:flex;flex-wrap:wrap;align-items:center;gap:8px}',
+    '.jmsu-toast span{flex:1 1 100%}',
+    '.jmsu-toast-btn{background:rgba(255,255,255,.14);color:#fff;border:0;padding:5px 10px;font-size:12px;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-block}',
+    '.jmsu-toast-btn:hover{background:rgba(255,255,255,.26)}',
     '@media (max-width:767px){.jmsu-fab{right:16px;bottom:18px;width:44px;height:44px}.jmsu-modal{padding:20px 18px 16px}.jmsu-field input,.jmsu-field textarea,.jmsu-field select{font-size:16px}.jmsu-modal.wide{width:100%}}'
   ].join('');
 
@@ -617,7 +668,7 @@
         t.className = 'jmsu-tab' + (t.getAttribute('data-tab') === name ? ' on' : '');
       });
       Object.keys(panes).forEach(function (k) { panes[k].style.display = k === name ? '' : 'none'; });
-      if (name === 'mem') renderMemberPane(panes.mem);
+      if (name === 'mem') renderMemberPane(panes.mem, s);
     }
     Array.prototype.forEach.call(tabs, function (t) {
       t.onclick = function () { show(t.getAttribute('data-tab')); };
@@ -672,7 +723,7 @@
 
   /* --- 成员 --- */
 
-  function renderMemberPane(pane) {
+  function renderMemberPane(pane, s) {
     pane.innerHTML =
       '<div class="jmsu-sec" style="margin-top:0">新增成员</div>'
       + '<div class="jmsu-row">'
@@ -687,7 +738,7 @@
       + '<div class="jmsu-msg" id="jmsu-m3"></div>'
       + '<div class="jmsu-sec">成员</div>'
       + '<div id="jmsu-mem-list" class="jmsu-list"><div class="jmsu-empty">读取中…</div></div>'
-      + '<div class="jmsu-sec">同步改密申请</div>'
+      + '<div class="jmsu-sec">成员改密申请</div>'
       + '<div class="jmsu-field"><input id="jmsu-req-in" type="text" placeholder="[密码] 姓名 哈希"></div>'
       + '<button class="jmsu-btn ghost" id="jmsu-req-do">同步</button>'
       + '<div class="jmsu-msg" id="jmsu-m5"></div>';
@@ -700,27 +751,25 @@
         box.innerHTML = '';
         if (!d.members.length) { box.appendChild(el('div', 'jmsu-empty', '还没有成员')); return; }
         d.members.forEach(function (m) {
+          var isSelf = String(m.name || '').toLowerCase() === String(s.name || '').toLowerCase();
           var row = el('div', 'jmsu-item');
           row.innerHTML = '<div class="grow"><span class="nm">' + esc(m.name) + '</span>'
             + '<span class="jmsu-badge' + (m.role === 'admin' ? ' admin' : '') + '">'
             + (m.role === 'admin' ? '管理员' : '成员') + '</span>'
             + '<div class="mt">' + esc(m.title || '') + '</div></div>';
-          var rp = el('button', 'jmsu-btn mini ghost', '改密');
-          rp.onclick = function () {
-            var pw = window.prompt('给「' + m.name + '」设新密码（至少 6 位）：', '');
-            if (!pw) return;
-            if (pw.length < 6) { window.alert('至少 6 位'); return; }
-            openIssue('[密码] ' + m.name, sha256(pw));
-            setMsg(msg, 'ok', '改密页已打开，点 Submit 生效');
-          };
-          var del = el('button', 'jmsu-btn mini warn', '移除');
-          del.onclick = function () {
-            if (!window.confirm('移除「' + m.name + '」？')) return;
-            openIssue('[移除] ' + m.name, '');
-            setMsg(msg, 'ok', '移除页已打开，点 Submit 生效');
-          };
-          row.appendChild(rp);
-          row.appendChild(del);
+          if (isSelf) {
+            var me = el('button', 'jmsu-btn mini ghost', '个人中心');
+            me.onclick = function () { mask.remove(); openProfile(s); };
+            row.appendChild(me);
+          } else {
+            var del = el('button', 'jmsu-btn mini warn', '移除');
+            del.onclick = function () {
+              if (!window.confirm('移除「' + m.name + '」？')) return;
+              openIssue('[移除] ' + m.name, '');
+              setMsg(msg, 'ok', '移除页已打开，点 Submit 生效');
+            };
+            row.appendChild(del);
+          }
           box.appendChild(row);
         });
       });
