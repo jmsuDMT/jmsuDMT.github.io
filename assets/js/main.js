@@ -101,8 +101,11 @@
       var tags = (item.tags || []).map(function (t) {
         return '<span class="tag">' + esc(t) + '</span>';
       }).join('');
+      var thumb = item.image
+        ? '<img src="' + esc(item.image) + '" alt="' + esc(item.name) + '" loading="lazy">'
+        : '<div class="thumb-empty" aria-hidden="true"></div>';
       card.innerHTML =
-        '<div class="work-thumb"><img src="' + esc(item.image) + '" alt="' + esc(item.name) + '" loading="lazy"></div>' +
+        '<div class="work-thumb">' + thumb + '</div>' +
         '<div class="work-body"><h3>' + esc(item.name) + '</h3>' +
         '<p>' + esc(item.summary) + '</p><div class="tags">' + tags + '</div></div>';
       card.addEventListener('click', function () { openDetail(item); });
@@ -154,10 +157,11 @@
     }).join('');
     block.innerHTML =
       '<div><ul class="join-list">' + rows + '</ul></div>' +
-      (join.qrcode
-        ? '<div class="qr"><img src="' + esc(join.qrcode) + '" alt="' + esc(join.qrcodeNote || '二维码') + '">' +
-          '<span>' + esc(join.qrcodeNote || '') + '</span></div>'
-        : '');
+      ('<div class="qr">' +
+        (join.qrcode
+          ? '<img src="' + esc(join.qrcode) + '" alt="' + esc(join.qrcodeNote || '二维码') + '">'
+          : '<div class="qr-empty" aria-hidden="true"></div>') +
+        '<span>' + esc(join.qrcodeNote || '') + '</span></div>');
   }
 
   /* ---------- 作品详情 ---------- */
@@ -173,7 +177,9 @@
     $('overlay-desc').textContent = item.detail || item.summary || '';
 
     var imgBox = $('overlay-image');
-    imgBox.innerHTML = '<img src="' + esc(item.image) + '" alt="' + esc(item.name) + '">';
+    imgBox.innerHTML = item.image
+      ? '<img src="' + esc(item.image) + '" alt="' + esc(item.name) + '">'
+      : '<div class="thumb-empty" aria-hidden="true"></div>';
 
     var meta = $('overlay-meta');
     meta.innerHTML = (item.meta || []).map(function (row) {
