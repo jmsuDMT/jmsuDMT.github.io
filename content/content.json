@@ -1,10 +1,10 @@
 {
   "site": {
-    "name": "佳木斯大学 DMT 社团",
-    "short": "DMT",
+    "name": "社团名",
+    "short": "SITE",
     "lang": "zh-CN",
-    "description": "佳木斯大学 DMT 社团 —— 写代码、造硬件、把想法变成能跑的东西。",
-    "footer": "佳木斯大学 DMT 社团 · 2019 — 2026"
+    "description": "",
+    "footer": "社团名 · 20XX"
   },
   "nav": [
     { "label": "我们做什么", "href": "#what" },
@@ -13,131 +13,95 @@
     { "label": "加入", "href": "#join" }
   ],
   "hero": {
-    "eyebrow": "JMSU · DMT · EST. 2019",
-    "title": ["佳木斯大学", "DMT 社团"],
-    "lead": "写代码、造硬件，把想法变成能跑的东西。",
-    "sub": "算法 · 嵌入式 · 网络安全 · 开源",
+    "eyebrow": "",
+    "title": ["主标题", "副标题"],
+    "lead": "一句话定位",
+    "sub": "",
     "scroll": "向下滚动"
   },
   "directions": {
     "title": "我们做什么",
-    "note": "四个方向，同一套做事的方法：先把问题拆小，再让它在硬件上真的跑起来。",
+    "note": "一句话说明",
     "items": [
-      {
-        "icon": "algo",
-        "title": "算法与竞赛",
-        "desc": "周赛、专题训练、ACM 与蓝桥杯备赛，拿得出手的从来不是模板，是思路。"
-      },
-      {
-        "icon": "chip",
-        "title": "嵌入式与硬件",
-        "desc": "从立创打样到焊台，STM32、ESP32、ROS 小车，做能摸得着的东西。"
-      },
-      {
-        "icon": "shield",
-        "title": "网络安全",
-        "desc": "靶场、CTF、逆向与流量分析，先学会怎么被打，再谈怎么防。"
-      },
-      {
-        "icon": "branch",
-        "title": "开源与协作",
-        "desc": "Git 工作流、Code Review、文档先行，让代码在毕业之后还能被人接手。"
-      }
+      { "icon": "algo", "title": "方向一", "desc": "一句话说明" },
+      { "icon": "chip", "title": "方向二", "desc": "一句话说明" },
+      { "icon": "shield", "title": "方向三", "desc": "一句话说明" },
+      { "icon": "branch", "title": "方向四", "desc": "一句话说明" }
     ]
   },
   "projects": {
     "title": "作品墙",
-    "note": "一些真的做出来了的东西。点开看细节。",
+    "note": "一句话说明",
     "items": [
       {
-        "id": "car",
-        "name": "DMT 智能循迹小车",
-        "summary": "双目摄像头 + 循迹模块，能在 30 秒内跑完标准赛道。",
-        "tags": ["STM32", "OpenCV", "PID"],
-        "image": "assets/img/project-01.svg",
-        "detail": "以 STM32F407 为主控，OV7725 采集赛道图像做二值化与边线拟合，配合编码器闭环的串级 PID 控制。整车成本控制在 600 元以内，供电、机械结构与走线全部由社团成员自行设计。",
-        "meta": [["年份", "2025"], ["参与", "6 人"], ["状态", "已完赛"]]
+        "id": "p1",
+        "name": "项目名",
+        "summary": "一句话介绍",
+        "tags": ["标签", "标签"],
+        "image": "",
+        "detail": "详细说明",
+        "meta": [["年份", "—"], ["参与", "—"], ["状态", "—"]]
       },
       {
-        "id": "lost",
-        "name": "校园失物招领",
-        "summary": "扫一张二维码就能登记和查询，跑在社团自己的服务器上。",
-        "tags": ["Vue", "FastAPI", "SQLite"],
-        "image": "assets/img/project-02.svg",
-        "detail": "面向全校的轻量失物招领平台，支持图片上传、关键词检索与认领流程。后端用 FastAPI 单文件起步，部署在一台 2C2G 的轻量云主机上，日均访问 300 次左右。",
-        "meta": [["年份", "2024"], ["参与", "4 人"], ["状态", "运行中"]]
+        "id": "p2",
+        "name": "项目名",
+        "summary": "一句话介绍",
+        "tags": ["标签", "标签"],
+        "image": "",
+        "detail": "详细说明",
+        "meta": [["年份", "—"], ["参与", "—"], ["状态", "—"]]
       },
       {
-        "id": "range",
-        "name": "社团内网靶场",
-        "summary": "六台虚拟机、三层网络，专供新人练手的内网渗透环境。",
-        "tags": ["Docker", "CTF", "Kali"],
-        "image": "assets/img/project-03.svg",
-        "detail": "用 Docker Compose 编排的一套靶场，包含 Web 漏洞、主机提权、内网横向三个难度层。每届新人从第一层开始打，通关记录留在社团的 Git 仓库里。",
-        "meta": [["年份", "2024"], ["参与", "3 人"], ["状态", "持续更新"]]
+        "id": "p3",
+        "name": "项目名",
+        "summary": "一句话介绍",
+        "tags": ["标签", "标签"],
+        "image": "",
+        "detail": "详细说明",
+        "meta": [["年份", "—"], ["参与", "—"], ["状态", "—"]]
       },
       {
-        "id": "site",
-        "name": "社团官网",
-        "summary": "就是你现在看的这个站，纯静态，没有后台。",
-        "tags": ["HTML", "CSS", "GitHub Pages"],
-        "image": "assets/img/project-04.svg",
-        "detail": "一套不依赖框架的静态单页，内容全部放在 content/content.json 里，改文案和图片只需要改文件再 push，不需要登录任何后台。",
-        "meta": [["年份", "2026"], ["参与", "2 人"], ["状态", "运行中"]]
+        "id": "p4",
+        "name": "项目名",
+        "summary": "一句话介绍",
+        "tags": ["标签", "标签"],
+        "image": "",
+        "detail": "详细说明",
+        "meta": [["年份", "—"], ["参与", "—"], ["状态", "—"]]
       }
     ]
   },
   "timeline": {
     "title": "一路走来",
-    "note": "从一间借来的实验室，到现在每年稳定输出的几个项目。",
+    "note": "一句话说明",
     "items": [
-      {
-        "year": "2019",
-        "title": "社团成立",
-        "desc": "由 7 名计算机与自动化专业的学生发起，第一间活动室在教学楼六楼。"
-      },
-      {
-        "year": "2021",
-        "title": "第一次校级比赛",
-        "desc": "承办校内程序设计邀请赛，参赛 60 余人，从此定下每年一届的惯例。"
-      },
-      {
-        "year": "2023",
-        "title": "硬件方向起步",
-        "desc": "引入焊台与示波器，第一台自制循迹小车跑完整条赛道。"
-      },
-      {
-        "year": "2025",
-        "title": "省赛突破",
-        "desc": "两支队伍进入省级嵌入式竞赛决赛，拿到一个二等奖、一个三等奖。"
-      },
-      {
-        "year": "2026",
-        "title": "现在",
-        "desc": "四个方向常态化运转，招新改成全年滚动，随时可以来旁听。"
-      }
+      { "year": "20XX", "title": "事件标题", "desc": "一句话说明" },
+      { "year": "20XX", "title": "事件标题", "desc": "一句话说明" },
+      { "year": "20XX", "title": "事件标题", "desc": "一句话说明" },
+      { "year": "20XX", "title": "事件标题", "desc": "一句话说明" },
+      { "year": "20XX", "title": "事件标题", "desc": "一句话说明" }
     ]
   },
   "members": {
     "title": "现任成员",
-    "note": "带你入门的人，大概就是他们。",
+    "note": "一句话说明",
     "items": [
-      { "name": "李锐", "role": "社长 · 算法", "initial": "李" },
-      { "name": "王同学", "role": "副社长 · 嵌入式", "initial": "王" },
-      { "name": "陈工", "role": "安全方向", "initial": "陈" },
-      { "name": "赵同学", "role": "开源与文档", "initial": "赵" },
-      { "name": "孙同学", "role": "硬件与焊接", "initial": "孙" }
+      { "name": "成员", "role": "身份", "initial": "名" },
+      { "name": "成员", "role": "身份", "initial": "名" },
+      { "name": "成员", "role": "身份", "initial": "名" },
+      { "name": "成员", "role": "身份", "initial": "名" },
+      { "name": "成员", "role": "身份", "initial": "名" }
     ]
   },
   "join": {
     "title": "加入我们",
-    "lead": "不需要你会写代码，只需要你愿意把一个东西做完。",
+    "lead": "一句话说明",
     "items": [
-      { "label": "QQ 群", "value": "1234 5678 9", "note": "招新、答疑、每周活动通知" },
-      { "label": "邮箱", "value": "dmt@example.com", "note": "合作、讲座、赞助" },
-      { "label": "活动地点", "value": "实训楼 302", "note": "每周三 19:00，随时可来" }
+      { "label": "QQ 群", "value": "—", "note": "" },
+      { "label": "邮箱", "value": "—", "note": "" },
+      { "label": "活动地点", "value": "—", "note": "" }
     ],
-    "qrcode": "assets/img/qrcode.svg",
-    "qrcodeNote": "扫码进群"
+    "qrcode": "",
+    "qrcodeNote": "二维码"
   }
 }
