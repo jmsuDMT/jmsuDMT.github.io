@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <author>
+    <name>jmsuDMT</name>
+  </author>
+  <generator uri="https://hexo.io/">Hexo</generator>
+  <id>https://jmsudmt.github.io/</id>
+  <link href="https://jmsudmt.github.io/" rel="alternate"/>
+  <link href="https://jmsudmt.github.io/atom.xml" rel="self"/>
+  <rights>All rights reserved 2026, jmsuDMT</rights>
+  <subtitle>DMT 社团</subtitle>
+  <title>佳木斯大学 DMT 社团</title>
+  <updated>2026-11-20T03:16:07.764Z</updated>
+  <entry>
+    <author>
+      <name>jmsuDMT</name>
+    </author>
+    <category term="公告" scheme="https://jmsudmt.github.io/categories/%E5%85%AC%E5%91%8A/"/>
+    <id>https://jmsudmt.github.io/2026/11/20/welcome/</id>
+    <link href="https://jmsudmt.github.io/2026/11/20/welcome/"/>
+    <published>2026-11-20T01:00:00.000Z</published>
+    <title>公告</title>
+    <updated>2026-11-20T03:16:07.764Z</updated>
+  </entry>
+</feed>
