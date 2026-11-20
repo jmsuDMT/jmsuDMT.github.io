@@ -346,14 +346,16 @@
 
   function openIssue(title, body) {
     var url = issueUrl(title, body);
-    var w = null;
-    try { w = window.open(url, '_blank'); } catch (e) { w = null; }
+    var a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    try { a.click(); } catch (e) {}
+    a.remove();
     var full = title + (body ? '\n' + body : '');
-    if (w) {
-      toast('发布页已打开。要你先登录 GitHub 的话，登录完会自动回到这一页。', full, null);
-    } else {
-      toast('新窗口被拦了。点「打开发布页」或「复制内容」去 GitHub 手动发。', full, url);
-    }
+    toast('发布页已打开。要你先登录 GitHub 的话，登录完会自动回到这一页。', full, url);
     return url;
   }
 
